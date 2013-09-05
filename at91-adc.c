@@ -311,7 +311,11 @@ static int __init at91_adc_init(void){
 		status=-ENODEV;
 		goto fail_no_iomem_adc;
 	}
+#ifdef AT91SAM9260_BASE_PIOC
+	at91_pioc_base = ioremap(AT91SAM9260_BASE_PIOC,SZ_512);
+#else
 	at91_pioc_base = ioremap(AT91_BASE_SYS + AT91_PIOC,SZ_512);
+#endif
 	if(!at91_pioc_base){
 		status=-ENODEV;
 		goto fail_no_iomem_pioc;
